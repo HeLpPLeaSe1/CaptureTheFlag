@@ -1,5 +1,8 @@
 package com.random.captureTheFlag;
 
+import com.random.captureTheFlag.player.CapturePlayer;
+import com.random.captureTheFlag.player.GameState;
+import com.random.captureTheFlag.region.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,9 +10,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 public class Capture extends JavaPlugin {
     private static Capture instance;
+    private Map<UUID, CapturePlayer> players = new HashMap<>();
+    private final Set<Flag> flags = new HashSet<>();
+    private GameState state = GameState.LOBBY;
+    private Location waitingLoc;
 
     public Capture() {
         instance = this;
@@ -58,6 +66,7 @@ public class Capture extends JavaPlugin {
         if (cfg.contains(path + ".World")) {
             world = cfg.getString(path + ".World");
         }
+
         if (cfg.contains(path + ".X")) {
             x = cfg.getDouble(path + ".X");
         }
@@ -74,6 +83,26 @@ public class Capture extends JavaPlugin {
             pitch = cfg.getInt(path + ".Pitch");
         }
         return new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
+    }
+
+    public Map<UUID, CapturePlayer> getPlayers() {
+        return players;
+    }
+
+    public Set<Flag> getFlags() {
+        return flags;
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
+    public Location getWaitingLoc() {
+        return waitingLoc;
     }
 
     public static Capture getInstance() {
