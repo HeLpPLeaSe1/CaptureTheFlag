@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CaptureTheFlag:jar">
+    <output-path>$PROJECT_DIR$/..</output-path>
+    <root id="archive" name="CaptureTheFlag.jar">
+      <element id="module-output" name="CaptureTheFlag" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../plugins/dependencies/spigot-api-1.8.8-R0.1-20160205.005117-39.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
