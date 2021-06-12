@@ -13,6 +13,7 @@ public class CapturePlayer {
 
     private final UUID uuid;
     private Team team;
+    private CapturePlayer killer;
 
     public CapturePlayer(UUID uuid) {
         this.uuid = uuid;
@@ -47,6 +48,10 @@ public class CapturePlayer {
 
     public Player getHandle() {
         return Bukkit.getPlayer(uuid);
+    }
+
+    public void setKiller(CapturePlayer killer) {
+        this.killer = killer;
     }
 
 }

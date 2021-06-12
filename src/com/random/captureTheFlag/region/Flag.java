@@ -5,9 +5,14 @@ import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.util.ItemBuilder;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Banner;
+import org.bukkit.material.MaterialData;
 
 public class Flag {
 
@@ -82,7 +87,7 @@ public class Flag {
     }
 
     public Material getMaterial() {
-        return Material.valueOf(team.name() + "_BANNER");
+        return Material.STANDING_BANNER; // Return the correct colored banner for the team instead of a blank banner
     }
 
     public ItemStack toItem() {
