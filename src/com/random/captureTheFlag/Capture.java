@@ -66,7 +66,6 @@ public class Capture extends JavaPlugin {
         if (cfg.contains(path + ".World")) {
             world = cfg.getString(path + ".World");
         }
-
         if (cfg.contains(path + ".X")) {
             x = cfg.getDouble(path + ".X");
         }

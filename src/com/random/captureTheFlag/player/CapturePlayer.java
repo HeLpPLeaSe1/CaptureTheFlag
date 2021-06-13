@@ -2,6 +2,7 @@ package com.random.captureTheFlag.player;
 
 import com.random.captureTheFlag.Capture;
 import com.random.captureTheFlag.region.Flag;
+import com.random.captureTheFlag.util.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,6 +15,7 @@ public class CapturePlayer {
     private final UUID uuid;
     private Team team;
     private CapturePlayer killer;
+    private Scoreboard scoreboard;
 
     public CapturePlayer(UUID uuid) {
         this.uuid = uuid;
@@ -54,4 +56,15 @@ public class CapturePlayer {
         this.killer = killer;
     }
 
+    public void setScoreboard(Scoreboard scoreboard) {
+        this.scoreboard = scoreboard;
+    }
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
+    }
+
+    public CapturePlayer getKiller() {
+        return killer;
+    }
 }
