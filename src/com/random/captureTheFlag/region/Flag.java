@@ -18,15 +18,13 @@ public class Flag {
 
     private final Location location;
     private final Team team;
-    private final byte id;
     private Player holder;
     private Entity dropped;
     private boolean present;
 
-    public Flag(Location location, Team team, byte id) {
+    public Flag(Location location, Team team) {
         this.location = location;
         this.team = team;
-        this.id = id;
     }
 
     public Player getHolder() {
@@ -53,10 +51,6 @@ public class Flag {
         return team;
     }
 
-    public byte getId() {
-        return id;
-    }
-
     public boolean isPresent() {
         return present;
     }
@@ -72,7 +66,7 @@ public class Flag {
             all.sendMessage("§7[---------------------§aFlag Taken!§7-------------------]");
             all.sendMessage("                        ");
             all.sendMessage("   §" + capturePlayer.getTeam().getColorCode() + player.getName() + "§7 has taken §"
-                    + capturePlayer.getTeam().getOpposingColor() + capturePlayer.getTeam().getOpposingTeam().toUpperCase() + "§7 team's flag!");
+                    + flag.getTeam().getColorCode() + flag.getTeam().getColorCode() + "§7 team's flag!");
             all.sendMessage("");
             all.sendMessage("§7[---------------------------------------------------]");
             all.playSound(all.getLocation(), Sound.ENDERDRAGON_GROWL, 7, 1);

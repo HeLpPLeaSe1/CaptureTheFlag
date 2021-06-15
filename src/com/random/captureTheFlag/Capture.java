@@ -2,6 +2,7 @@ package com.random.captureTheFlag;
 
 import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.GameState;
+import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.region.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,12 +33,33 @@ public class Capture extends JavaPlugin {
                 e.printStackTrace();
             }
         }
+        registerFlag(Team.RED);
+        registerFlag(Team.BLUE);
+
 
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    public Flag getFlag(Location loc) {
+        for (Flag flag : flags) {
+            if(flag.getLocation().distance(loc) < 3) {
+                return flag;
+            }
+        }
+        return null;
+    }
+
+    private void registerFlag(Team team) {
+        final Location flagLoc = getLocation("flag" + team.name().toLowerCase());
+        if (flagLoc != null) {
+            final Flag flag = new Flag(flagLoc, team);
+            flags.add(flag);
+            flag.put();
+        }
     }
 
     public void setLocation(String path, Location loc) {

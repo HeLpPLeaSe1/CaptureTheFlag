@@ -40,7 +40,6 @@ public class RejectionListeners implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent ev) {
         if (ev.getPlayer() == null) return;
-
         if (Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId()) && ev.getBlock().getType() == Material.WOOL) {
             blocks.remove(ev.getBlock().getLocation());
         } else if (Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId())) {

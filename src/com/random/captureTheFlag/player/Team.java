@@ -5,7 +5,7 @@ import org.bukkit.Location;
 
 public enum Team {
 
-    RED('c', false, '9', "blue", Color.RED), BLUE('9', false, 'c', "red", Color.BLUE), SPECTATOR(' ', true, ' ', "", Color.GRAY), SPECTATOR_RED(' ', true, ' ', "", Color.GRAY), SPECTATOR_BLUE(' ', true, ' ', "", Color.GRAY);
+    RED('c', false, '9', "blue", Color.RED), BLUE('9', false, 'c', "red", Color.BLUE), SPECTATOR(' ', true, ' ', "", Color.GRAY);
 
     private Location spawn;
     private final char colorCode;
@@ -39,16 +39,4 @@ public enum Team {
     }
 
     public boolean getSpectator() {return spectator;}
-
-    public char getOpposingColor() {
-        return opposingColor;
-    }
-
-    public String getOpposingTeam() {
-        return opposingTeam;
-    }
-
-    public Color getColor() {
-        return color;
-    }
 }
