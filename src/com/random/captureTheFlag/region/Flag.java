@@ -5,13 +5,13 @@ import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.util.ItemBuilder;
 import org.bukkit.*;
+import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Banner;
 import org.bukkit.material.MaterialData;
 
 public class Flag {
@@ -77,17 +77,21 @@ public class Flag {
         holder = null;
         present = true;
         location.clone().subtract(0, 3, 0).getBlock().setType(Material.DIAMOND_BLOCK);
-        location.getBlock().setType(getMaterial());
+        location.getBlock().setType(Material.STANDING_BANNER);
+        Banner banner = (Banner) location.getBlock();
+        banner.setBaseColor(getColor());
     }
 
-    public Material getMaterial() {
-        return Material.STANDING_BANNER; // Return the correct colored banner for the team instead of a blank banner
+    public DyeColor getColor() {
+        return DyeColor.valueOf(team.name().toUpperCase());
     }
 
     public ItemStack toItem() {
-        return new ItemBuilder().setDisplayName("§" + team.getColorCode()
-                + team.name().toLowerCase().replace("r", "R").replace("b", "B") + ChatColor.GRAY + " Flag")
-                .setMaterial(getMaterial()).getItem();
+        ItemStack banner = new ItemStack(Material.STANDING_BANNER);
+        BannerMeta meta = (BannerMeta) banner.getItemMeta();
+        meta.setBaseColor(getColor());
+        banner.setItemMeta(meta);
+        return banner;
     }
 
 }

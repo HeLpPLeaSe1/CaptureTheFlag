@@ -1,12 +1,18 @@
 package com.random.captureTheFlag;
 
+import com.random.captureTheFlag.commands.CommandJoin;
+import com.random.captureTheFlag.commands.CommandSetup;
+import com.random.captureTheFlag.commands.CommandShout;
+import com.random.captureTheFlag.listeners.*;
 import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.GameState;
+import com.random.captureTheFlag.player.Round;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.region.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -19,6 +25,7 @@ public class Capture extends JavaPlugin {
     private final Set<Flag> flags = new HashSet<>();
     private GameState state = GameState.LOBBY;
     private Location waitingLoc;
+    private Round round = Round.ONE;
 
     public Capture() {
         instance = this;
@@ -35,6 +42,18 @@ public class Capture extends JavaPlugin {
         }
         registerFlag(Team.RED);
         registerFlag(Team.BLUE);
+
+        PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new CaptureListener(), this);
+        pm.registerEvents(new ChatListener(), this);
+        pm.registerEvents(new DeathListener(), this);
+        pm.registerEvents(new GameStartListener(), this);
+        pm.registerEvents(new JoinListener(), this);
+        pm.registerEvents(new RejectionListeners(), this);
+
+        getCommand("join").setExecutor(new CommandJoin());
+        getCommand("ctfsetup").setExecutor(new CommandSetup());
+        getCommand("shout").setExecutor(new CommandShout());
 
 
     }
@@ -120,6 +139,14 @@ public class Capture extends JavaPlugin {
 
     public void setState(GameState state) {
         this.state = state;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
+    public Round getRound() {
+        return round;
     }
 
     public Location getWaitingLoc() {
