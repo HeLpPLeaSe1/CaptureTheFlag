@@ -21,7 +21,7 @@ public class Scoreboard {
         if (ingame) {
             obj.getScore(ChatColor.YELLOW + "Capture your enemy's flags!").setScore(10);
             obj.getScore(ChatColor.DARK_GRAY + "[------------------------]").setScore(9);
-            obj.getScore(ChatColor.GOLD + "Round 1/3");
+            obj.getScore(ChatColor.GOLD + "Round " + Capture.getInstance().getRound().getId() + "/3");
             obj.getScore(" ").setScore(8);
             if (player.getTeam() == Team.RED) {
                 obj.getScore(ChatColor.RED + "Red Flag: " + ChatColor.GREEN + "✓" + ChatColor.GRAY + " YOU").setScore(7);

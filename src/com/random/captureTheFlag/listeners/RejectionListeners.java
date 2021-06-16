@@ -31,7 +31,7 @@ public class RejectionListeners implements Listener {
             return;
         }
 
-        if (Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId())) {
+        if (Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId()) && Capture.getInstance().getState() == GameState.INGAME) {
             blocks.add(ev.getBlock().getLocation());
         }
 

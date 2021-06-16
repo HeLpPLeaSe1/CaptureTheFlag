@@ -78,8 +78,9 @@ public class Flag {
         present = true;
         location.clone().subtract(0, 3, 0).getBlock().setType(Material.DIAMOND_BLOCK);
         location.getBlock().setType(Material.STANDING_BANNER);
-        Banner banner = (Banner) location.getBlock();
+        Banner banner = (Banner) location.getBlock().getState();
         banner.setBaseColor(getColor());
+        banner.update();
     }
 
     public DyeColor getColor() {

@@ -11,7 +11,9 @@ import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.region.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,6 +35,7 @@ public class Capture extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getConfig().options().copyDefaults(true);
         if (!(new File("./plugins/CaptureTheFlag/config.yml").exists())) {
             try {
                 new File("./plugins/CaptureTheFlag/config.yml").createNewFile();
@@ -65,7 +68,7 @@ public class Capture extends JavaPlugin {
 
     public Flag getFlag(Location loc) {
         for (Flag flag : flags) {
-            if(flag.getLocation().distance(loc) < 3) {
+            if(flag.getLocation() == loc) {
                 return flag;
             }
         }
@@ -97,7 +100,7 @@ public class Capture extends JavaPlugin {
     }
 
     public Location getLocation(String path) {
-        FileConfiguration cfg = getConfig();
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(new File("./plugins/CaptureTheFlag/config.yml"));
         String world = "world";
         double x = 0;
         double y = 0;

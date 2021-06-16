@@ -5,6 +5,7 @@ import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.util.Scoreboard;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -16,6 +17,7 @@ public class GameStartListener implements Listener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent ev) {
+        if (ev.getWhoClicked().getGameMode() != GameMode.SURVIVAL) return;
         if (ev.getCurrentItem() == null) return;
         if (ev.getCurrentItem().getItemMeta().getDisplayName().equals(/* With main plugin, there will be inv that holds this item, along with other mini-games' items to join */"")) {
             if (Capture.getInstance().getPlayers().containsKey(ev.getWhoClicked().getUniqueId())) return;
