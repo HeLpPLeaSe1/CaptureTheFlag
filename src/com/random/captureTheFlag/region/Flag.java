@@ -62,14 +62,14 @@ public class Flag {
         player.getInventory().addItem(toItem());
         location.getBlock().setType(Material.AIR);
         location.clone().subtract(0, 3, 0).getBlock().setType(Material.AIR);
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            all.sendMessage("§7[---------------------§aFlag Taken!§7-------------------]");
-            all.sendMessage("                        ");
-            all.sendMessage("   §" + capturePlayer.getTeam().getColorCode() + player.getName() + "§7 has taken §"
-                    + flag.getTeam().getColorCode() + flag.getTeam().getColorCode() + "§7 team's flag!");
-            all.sendMessage("");
-            all.sendMessage("§7[---------------------------------------------------]");
-            all.playSound(all.getLocation(), Sound.ENDERDRAGON_GROWL, 7, 1);
+        for (CapturePlayer all : Capture.getInstance().getPlayers().values()) {
+            all.getHandle().sendMessage("§7[---------------------§aFlag Taken!§7-------------------]");
+            all.getHandle().sendMessage("                        ");
+            all.getHandle().sendMessage("   §" + capturePlayer.getTeam().getColorCode() + player.getName() + "§7 has taken §"
+                    + flag.getTeam().getColorCode() + flag.getTeam().name().toUpperCase() + "§7 team's flag!");
+            all.getHandle().sendMessage("");
+            all.getHandle().sendMessage("§7[---------------------------------------------------]");
+            all.getHandle().playSound(all.getHandle().getLocation(), Sound.ENDERDRAGON_GROWL, 7, 1);
         }
     }
 
@@ -88,9 +88,9 @@ public class Flag {
     }
 
     public ItemStack toItem() {
-        ItemStack banner = new ItemStack(Material.STANDING_BANNER);
-        BannerMeta meta = (BannerMeta) banner.getItemMeta();
-        meta.setBaseColor(getColor());
+        ItemStack banner = new ItemStack(Material.BANNER, 1, getColor().getDyeData());
+        ItemMeta meta = banner.getItemMeta();
+        meta.setDisplayName("§" + team.getColorCode() + team.name() + "§7 Team's Flag");
         banner.setItemMeta(meta);
         return banner;
     }

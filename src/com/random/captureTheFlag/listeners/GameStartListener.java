@@ -2,6 +2,7 @@ package com.random.captureTheFlag.listeners;
 
 import com.random.captureTheFlag.Capture;
 import com.random.captureTheFlag.player.CapturePlayer;
+import com.random.captureTheFlag.player.GameState;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.util.Scoreboard;
 import org.bukkit.ChatColor;
@@ -40,7 +41,7 @@ public class GameStartListener implements Listener {
                     for (CapturePlayer cp : cps) {
                         cp.getHandle().teleport(cp.getTeam().getSpawn());
                         cp.getHandle().sendMessage(""); // Game start event
-                        cp.getHandle().teleport(cp.getTeam().getSpawn());
+                        Capture.getInstance().setState(GameState.INGAME);
                     }
                 } else {
                     for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {

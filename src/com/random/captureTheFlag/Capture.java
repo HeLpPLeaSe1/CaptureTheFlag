@@ -11,7 +11,6 @@ import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.region.Flag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -68,7 +67,7 @@ public class Capture extends JavaPlugin {
 
     public Flag getFlag(Location loc) {
         for (Flag flag : flags) {
-            if(flag.getLocation() == loc) {
+            if(flag.getLocation().distance(loc) < 3) {
                 return flag;
             }
         }

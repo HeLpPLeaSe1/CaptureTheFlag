@@ -3,8 +3,11 @@ package com.random.captureTheFlag.listeners;
 import com.random.captureTheFlag.Capture;
 import com.random.captureTheFlag.player.CapturePlayer;
 import com.random.captureTheFlag.player.GameState;
+import com.random.captureTheFlag.player.Round;
 import com.random.captureTheFlag.player.Team;
 import com.random.captureTheFlag.region.Flag;
+import com.random.captureTheFlag.util.Scoreboard;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,17 +31,28 @@ public class CaptureListener implements Listener {
                     if (player.hasEnemyFlag()) {
                         for (Flag flags : Capture.getInstance().getFlags()) {
                             if (flags.getTeam() != player.getTeam() && flags.getHolder().getUniqueId() == ev.getPlayer().getUniqueId()) {
-                                if (ev.getPlayer().getItemInHand() != null && ev.getPlayer().getItemInHand() == flags.toItem()) {
-                                    flags.setHolder(null);
-                                    ev.getPlayer().setItemInHand(null);
-                                    // CAPTURED ~*~ <--
+                                for (Flag flag : Capture.getInstance().getFlags()) {
+                                    flag.put();
+                                }
+                                // CAPTURED ~*~ <--
 
-                                    for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {
-                                        cp.getHandle().sendMessage("§" + currentFlag.getTeam().getColorCode() + currentFlag.getTeam().name()
-                                                + "§a Team Flag has been captured by §" + player.getTeam().getColorCode() + ev.getPlayer().getName() + "§a!");
+                                for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {
+                                    cp.getHandle().sendMessage("§" + flags.getTeam().getColorCode() + flags.getTeam().name()
+                                            + "§a Team Flag has been captured by §" + player.getTeam().getColorCode() + ev.getPlayer().getName() + "§a!");
+                                    cp.getHandle().teleport(cp.getTeam().getSpawn());
+                                    cp.getHandle().getInventory().clear();
+                                    cp.setScoreboard(new Scoreboard(cp, true));
+                                }
+                                if (Capture.getInstance().getRound() != Round.THREE) {
+                                    Capture.getInstance().setRound(Capture.getInstance().getRound() == Round.ONE ? Round.TWO : Round.THREE);
+                                } else {
+                                    for (Location loc : RejectionListeners.getBlocks()) {
+                                        loc.getBlock().setType(Material.AIR);
                                     }
+                                    Capture.getInstance().getPlayers().clear();
                                     return;
                                 }
+                                return;
                             }
                         }
                     } else {
@@ -47,7 +61,11 @@ public class CaptureListener implements Listener {
                     }
                 }
                 if (player.getTeam() != currentFlag.getTeam()) {
-
+                    if (player.getCurrentFlags().length == 0) {
+                        currentFlag.setHolder(ev.getPlayer());
+                        currentFlag.take(currentFlag, ev.getPlayer());
+                        // FLAG TAKEN ~*~ <--
+                    }
                 }
                 return;
             }
@@ -56,14 +74,14 @@ public class CaptureListener implements Listener {
                 final Flag currentFlag1 = Capture.getInstance().getFlag(ev.getClickedBlock().getLocation().add(0, 1, 0));
                 if (currentFlag1 == null) return;
                 if (player.getCurrentFlags().length == 0) return;
-                if (currentFlag1.getTeam() == player.getTeam() && ev.getPlayer().getItemInHand() != null && ev.getPlayer().getItemInHand().getItemMeta() == currentFlag1.toItem().getItemMeta()) {
-                    ev.getPlayer().setItemInHand(null);
+                if (currentFlag1.getTeam() == player.getTeam()) {
                     currentFlag1.put();
-                    // RETURNED
+                    ev.getPlayer().getInventory().remove(currentFlag1.toItem());
+                    // RETURNED ~*~ <--
 
                     for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {
                         cp.getHandle().sendMessage("§" + currentFlag1.getTeam().getColorCode() + currentFlag1.getTeam().name()
-                                + "§a Team Flag has been returned by §" + player.getTeam().getColorCode() + ev.getPlayer().getName() + "§a!");
+                                + "§a Team's Flag has been returned by §" + player.getTeam().getColorCode() + ev.getPlayer().getName() + "§a!");
 
                     }
                 }

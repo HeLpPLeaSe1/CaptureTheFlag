@@ -8,28 +8,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class DeathListener implements Listener {
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent ev) {
+    public void onPlayerDamageDeath(PlayerDeathEvent ev) {
         if (Capture.getInstance().getPlayers().containsKey(ev.getEntity().getUniqueId())) {
+            ev.getEntity().getInventory().clear();
             CapturePlayer player = Capture.getInstance().getPlayers().get(ev.getEntity().getUniqueId());
-            if (ev.getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.VOID) {
-                if (player.getKiller() == null) {
-                    ev.setDeathMessage("§" + player.getKiller().getTeam().getColorCode() + player.getKiller().getHandle().getName() + " §7fell into the void.");
-                } else {
-                    ev.setDeathMessage("§" + player.getKiller().getTeam().getColorCode() + player.getKiller().getHandle().getName()
-                            + " §7was knocked into the void by §" + player.getKiller().getTeam().getColorCode() + player.getKiller().getHandle().getName() + "§7.");
-                }
+            if (player.getKiller() == null) {
+                ev.setDeathMessage("§" + player.getTeam().getColorCode() + ev.getEntity().getName() + " §7died.");
             } else {
-                if (ev.getEntity().getKiller() == null) {
-                    ev.setDeathMessage("§" + player.getTeam().getColorCode() + ev.getEntity().getName() + " §7died.");
-                }
+                ev.setDeathMessage("§" + player.getTeam().getColorCode() + player.getHandle().getName()
+                        + " §7was knocked into the void by §" + player.getKiller().getTeam().getColorCode() + player.getKiller().getHandle().getName() + "§7.");
             }
+
             if (player.getCurrentFlags().length != 0) {
                 for (Flag flag : Capture.getInstance().getFlags()) {
                     if (flag.getHolder() == ev.getEntity()) {
@@ -77,7 +72,8 @@ public class DeathListener implements Listener {
                         Capture.getInstance().getPlayers().get(ev.getEntity().getUniqueId()).setKiller(null);
                     }
                 }
-            }.runTaskLater(Capture.getInstance(), 10 * 20);
+            }.runTaskLater(Capture.getInstance(), 100);
+
         }
     }
 }

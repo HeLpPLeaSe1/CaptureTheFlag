@@ -42,6 +42,7 @@ public class CommandJoin implements CommandExecutor {
                 for (CapturePlayer cp : cps) {
                     cp.getHandle().teleport(cp.getTeam().getSpawn());
                     cp.getHandle().sendMessage("§aGame starting..."); // Game start message
+                    Capture.getInstance().setState(GameState.INGAME);
                 }
             } else {
                 for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {

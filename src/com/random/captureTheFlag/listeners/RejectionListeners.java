@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RejectionListeners implements Listener {
-    public List<Location> blocks = new ArrayList<>();
+    public static List<Location> blocks = new ArrayList<>();
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent ev) {
@@ -26,7 +26,7 @@ public class RejectionListeners implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent ev) {
         if (ev.getPlayer() == null) return;
-        if ((ev.getBlock().getType() == Material.STANDING_BANNER || Capture.getInstance().getState() != GameState.INGAME) && Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId())) {
+        if ((ev.getBlock().getType() == Material.STANDING_BANNER || ev.getBlock().getType() == Material.WALL_BANNER || Capture.getInstance().getState() != GameState.INGAME) && Capture.getInstance().getPlayers().containsKey(ev.getPlayer().getUniqueId())) {
             ev.setCancelled(true);
             return;
         }
@@ -46,5 +46,9 @@ public class RejectionListeners implements Listener {
             ev.setCancelled(true);
         }
 
+    }
+
+    public static List<Location> getBlocks() {
+        return blocks;
     }
 }

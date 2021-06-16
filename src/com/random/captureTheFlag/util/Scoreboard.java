@@ -19,9 +19,9 @@ public class Scoreboard {
         Objective obj = board.registerNewObjective("dummy", "test");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         if (ingame) {
-            obj.getScore(ChatColor.YELLOW + "Capture your enemy's flags!").setScore(10);
-            obj.getScore(ChatColor.DARK_GRAY + "[------------------------]").setScore(9);
-            obj.getScore(ChatColor.GOLD + "Round " + Capture.getInstance().getRound().getId() + "/3");
+            obj.getScore(ChatColor.YELLOW + "Capture your enemy's flags!").setScore(11);
+            obj.getScore(ChatColor.DARK_GRAY + "[------------------------]").setScore(10);
+            obj.getScore(ChatColor.GOLD + "Round " + Capture.getInstance().getRound().getId() + "/3").setScore(9);
             obj.getScore(" ").setScore(8);
             if (player.getTeam() == Team.RED) {
                 obj.getScore(ChatColor.RED + "Red Flag: " + ChatColor.GREEN + "✓" + ChatColor.GRAY + " YOU").setScore(7);
@@ -35,7 +35,7 @@ public class Scoreboard {
             obj.getScore(ChatColor.WHITE + "Flags Taken: " + 0).setScore(3);
             obj.getScore(ChatColor.WHITE + "Flags Captured: " + 0).setScore(2);
             obj.getScore("   ").setScore(1);
-            obj.getScore(ChatColor.DARK_GRAY + "[------------------------]").setScore(0);
+            obj.getScore(ChatColor.DARK_GRAY + "[------------------------] ").setScore(0);
 
             if (player.getTeam() == Team.RED) {
                 org.bukkit.scoreboard.Team red = board.registerNewTeam("red");
@@ -61,9 +61,10 @@ public class Scoreboard {
             obj.getScore(ChatColor.DARK_GRAY + "Waiting for more players...").setScore(3);
             obj.getScore(ChatColor.YELLOW + "" + Capture.getInstance().getPlayers().size() + ChatColor.GRAY + "/" + ChatColor.YELLOW + "8" + ChatColor.GRAY + " Players...").setScore(2);
             obj.getScore("  ").setScore(1);
-            obj.getScore(ChatColor.DARK_GRAY + "[------------------------]").setScore(0);
+            obj.getScore(ChatColor.DARK_GRAY + "[------------------------] ").setScore(0);
 
         }
+        player.getHandle().setScoreboard(board);
 
     }
 
