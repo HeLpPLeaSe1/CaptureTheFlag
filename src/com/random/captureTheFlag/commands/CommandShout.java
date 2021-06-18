@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public class CommandShout implements CommandExecutor {
 
     @Override
@@ -23,7 +25,9 @@ public class CommandShout implements CommandExecutor {
             }
             CapturePlayer capturePlayer = Capture.getInstance().getPlayers().get(player.getUniqueId());
             for (CapturePlayer all : Capture.getInstance().getPlayers().values()) {
-                all.getHandle().sendMessage("§6[§eSHOUT §8--> §" + capturePlayer.getTeam().getColorCode() + capturePlayer.getTeam().name().toUpperCase() + "§6] §f" + player.getName() + ": " + args);
+                all.getHandle().sendMessage("§6[§eSHOUT §8--> §" + capturePlayer.getTeam().getColorCode()
+                        + capturePlayer.getTeam().name().toUpperCase() + "§6] §f" + player.getName() + ": "
+                        + Arrays.toString(args).replace("[", "").replace(",", "").replace("]", ""));
             }
         }
         return false;

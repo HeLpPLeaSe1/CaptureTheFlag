@@ -16,7 +16,7 @@ public class Scoreboard {
     public Scoreboard(CapturePlayer player, boolean ingame) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         org.bukkit.scoreboard.Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("dummy", "test");
+        Objective obj = board.registerNewObjective("Capture the Flag", "test");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         if (ingame) {
             obj.getScore(ChatColor.YELLOW + "Capture your enemy's flags!").setScore(11);
@@ -24,10 +24,10 @@ public class Scoreboard {
             obj.getScore(ChatColor.GOLD + "Round " + Capture.getInstance().getRound().getId() + "/3").setScore(9);
             obj.getScore(" ").setScore(8);
             if (player.getTeam() == Team.RED) {
-                obj.getScore(ChatColor.RED + "Red Flag: " + ChatColor.GREEN + "✓" + ChatColor.GRAY + " YOU").setScore(7);
+                obj.getScore(ChatColor.RED + "Red Flag:  " + ChatColor.GREEN + "✓" + ChatColor.GRAY + " YOU").setScore(7);
                 obj.getScore(ChatColor.BLUE + "Blue Flag: " + ChatColor.GREEN + "✓").setScore(6);
             } else {
-                obj.getScore(ChatColor.RED + "Red Flag: " + ChatColor.GREEN + "✓").setScore(7);
+                obj.getScore(ChatColor.RED + "Red Flag:  " + ChatColor.GREEN + "✓").setScore(7);
                 obj.getScore(ChatColor.BLUE + "Blue Flag: " + ChatColor.GREEN + "✓" + ChatColor.GRAY + " YOU").setScore(6);
             }
             obj.getScore("  ").setScore(5);

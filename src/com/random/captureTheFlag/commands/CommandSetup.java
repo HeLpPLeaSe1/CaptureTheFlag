@@ -18,7 +18,7 @@ public class CommandSetup implements CommandExecutor {
         Player player = (Player) sender;
         if (!player.isOp()) return true;
         if (args.length != 1) {
-            player.sendMessage(ChatColor.RED + "Incorrect usage!  /setcaptureloc <loc>");
+            player.sendMessage(ChatColor.RED + "Incorrect usage!  /ctfsetup <loc>");
             return true;
         }
         Capture.getInstance().setLocation(args[0], player.getLocation());

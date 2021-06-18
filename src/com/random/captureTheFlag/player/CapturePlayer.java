@@ -16,6 +16,7 @@ public class CapturePlayer {
     private Team team;
     private CapturePlayer killer;
     private Scoreboard scoreboard;
+    private KitType kit;
 
     public CapturePlayer(UUID uuid) {
         this.uuid = uuid;
@@ -66,5 +67,13 @@ public class CapturePlayer {
 
     public CapturePlayer getKiller() {
         return killer;
+    }
+
+    public void setKit(KitType kit) {
+        this.kit = kit;
+    }
+
+    public KitType getKit() {
+        return kit;
     }
 }

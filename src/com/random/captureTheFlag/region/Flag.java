@@ -37,6 +37,7 @@ public class Flag {
 
     public void setDropped(Entity dropped) {
         this.dropped = dropped;
+        this.holder = null;
     }
 
     public Entity getDropped() {

@@ -17,7 +17,7 @@ public class ChatListener implements Listener {
             for (CapturePlayer cp : Capture.getInstance().getPlayers().values()) {
                 if (cp.getTeam() == player.getTeam()) {
                     cp.getHandle().sendMessage("§7[§" + player.getTeam().getColorCode() + player.getTeam().name().toUpperCase()
-                            + "§7]§f " + ev.getPlayer().getName() + "§7:" + ev.getMessage());
+                            + "§7]§f " + ev.getPlayer().getName() + "§7: " + ev.getMessage());
 
                 }
 
